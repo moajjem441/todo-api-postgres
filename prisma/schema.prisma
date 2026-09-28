@@ -14,3 +14,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model Todo{
+  id Int @id @default(autoincremment())
+  titile String 
+  description String
+
+  completed Boolean @default(false)
+  priority String @default("medium")
+  dueDate dateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
