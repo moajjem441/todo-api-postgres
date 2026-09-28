@@ -19,3 +19,10 @@ router.get("/",async(req,res)=>{
     });
     res.status(200).json(todos);
 })
+
+
+//Get single todo
+
+router.get('/:id',async(req,res)=>{
+    
+})
