@@ -42,3 +42,30 @@ router.get('/:id',async(req,res)=>{
         res.status(500).json({error:"failed to get todo"});
     }
 });
+
+
+// create a new todo
+
+router.post("/",async(req,res)=>{
+    try{
+        const {title,description,completed,priority,dueDate} = req.body;
+
+        if(!title || !description){
+            return res.status(400).json({error:"title and description are required"});
+        }
+
+        const newTodo = await prisma.todo.create({
+            data:{
+                title,
+                description,
+                priority,
+                dueDate : dueDate ? new Date(dueDate) : null,
+            },
+        });
+
+        res.status(201).json(newTodo)
+    }catch(error){
+        res.status(500).json({error : "failed to create todo", details: error.message});
+    }
+});
+
