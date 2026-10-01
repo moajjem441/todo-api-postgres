@@ -69,3 +69,35 @@ router.post("/",async(req,res)=>{
     }
 });
 
+
+
+
+//update an existing todo
+
+router.patch("/:id",async(req,res)=>{
+    try{
+        const {id} = req.params;
+        if(isNaN(id)) return res.status(400).json({error:"invalid Id format"});
+
+        const {title,description,completed,priority,dueDate} = req.body;
+
+        const updatedTodo = await prisma.todo.update({
+            where:{id},
+            data:{
+                title,
+                description,
+                completed,
+                priority,
+                dueDate : dueDate : new Date(dueDate) : undefined,
+            },
+        });
+        res.status(200).json(updatedTodo);
+    
+    }catch(error){
+        if(error.code === "P2025"){
+            return res.status(404).json({error:"Todo not found"});
+        }
+        res.status(500).json({error:"failed to update todo"});
+    }
+});
+
