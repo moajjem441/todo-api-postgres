@@ -88,7 +88,7 @@ router.patch("/:id",async(req,res)=>{
                 description,
                 completed,
                 priority,
-                dueDate : dueDate : new Date(dueDate) : undefined,
+                dueDate : dueDate ? new Date(dueDate) : undefined,
             },
         });
         res.status(200).json(updatedTodo);
